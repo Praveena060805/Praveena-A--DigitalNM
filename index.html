@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #0f0f0f; /* Dark background */
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Dynamic Gradient Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #1e3c72, #2a5298, #6a1b9a, #ab47bc);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            z-index: -1;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            background: rgba(15, 15, 15, 0.8);
+            color: #fff;
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content h1 {
+            font-size: 3rem;
+            margin: 0;
+            animation: fadeInDown 1.5s ease-in-out;
+            color: #ab47bc; /* Vibrant purple */
+        }
+
+        .header-content p {
+            font-size: 1.2rem;
+            animation: fadeInUp 1.5s ease-in-out;
+            color: #bbb;
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #ab47bc;
+            box-shadow: 0 0 20px rgba(171, 71, 188, 0.5);
+            animation: float 4s ease-in-out infinite, glow 3s ease-in-out infinite;
+        }
+
+        nav {
+            background: rgba(15, 15, 15, 0.9);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.1rem;
+            transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ab47bc;
+            transform: translateY(-3px);
+            text-shadow: 0 0 10px rgba(171, 71, 188, 0.8);
+        }
+
+        .section-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            margin: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(171, 71, 188, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .section-content.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .download-button {
+            background: linear-gradient(135deg, #ab47bc, #6a1b9a);
+            color: #fff;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .download-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(171, 71, 188, 0.4);
+            background: linear-gradient(135deg, #6a1b9a, #ab47bc);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem 0;
+            background: rgba(15, 15, 15, 0.9);
+            color: #fff;
+            margin-top: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            margin: 10px 0;
+        }
+
+        ul li a {
+            color: #ab47bc;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        ul li a:hover {
+            color: #6a1b9a;
+            transform: translateX(5px);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .skills-list, .education-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .skills-list li, .education-list li {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            flex: 1 1 calc(33.333% - 2rem);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skills-list li:hover, .education-list li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(171, 71, 188, 0.4);
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ab47bc;
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+    
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px rgba(171, 71, 188, 0.6); }
+            50% { box-shadow: 0 0 20px rgba(171, 71, 188, 0.8); }
+            100% { box-shadow: 0 0 10px rgba(171, 71, 188, 0.6); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="praveena pic.jpeg" alt="Your Profile Picture" class="profile-picture">
+            <h1>PRAVEENA A</h1>
+            <p>I am currently pursuing a Bachelor of Science (B.Sc) in Computer Science.</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#education" class="nav-link">Education</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#resume" class="nav-link">Resume</a></li>
+        </ul>
+    </nav>
+
+    <section id="about">
+        <div class="section-content">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I am Praveena A, a passionate and driven Computer Science student with a strong foundation in programming, data structures, and web development. Proficient in Python, Java, HTML, and CSS, I am eager to apply my technical skills and academic knowledge to contribute to innovative IT projects.
+
+                        I have hands-on experience in machine learning and have worked on projects like Social Shield, a system designed to detect drug trafficking activity on social media using advanced data analysis techniques. My leadership skills were honed as a Junior Student Council Member and through organizing large-scale events like the Einstein World Records Event and Republic Day Celebrations, scrum master in Gold Heart Foundation for the One team .
+                        
+                        Beyond academics, I am skilled in effective communication, teamwork, and critical thinking, with certifications in Internet of Things (IoT) and experience in media literacy and community service. Fluent in English and Tamil, with basic knowledge of French, I am committed to continuous learning and making a meaningful impact in the tech industry.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="section-content">
+            <h2>Education</h2>
+            <ul class="education-list">
+                <li><i class="fas fa-graduation-cap"></i> 2nd-year B.Sc. Computer Science</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="section-content">
+            <h2>Skills</h2>
+            <ul class="skills-list">
+                <li><i class="fas fa-microchip"></i> CANVA</li>
+                <li><i class="fab fa-python"></i> PYTHON</li>
+                <li><i class="fab fa-html5"></i> HTML5</li>
+                <li><i class="fab fa-css3-alt"></i> CSS</li>
+                <li><i class="fab fa-css3-alt"></i> JAVA</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="section-content">
+            <h2>Projects</h2>
+            <ul>
+                <li><a href="index2.html"><i class="fas fa-briefcase"></i> JOB BOARD</a></li>
+                <li><a href="index3.html"><i class="fas fa-question-circle"></i> ONLINE QUIZ MAKER</a></li>
+                <li><a href="project2.html"><i class="fas fa-question-circle"></i> WEB SITE</a></li>
+                <li><a href="index.html"><i class="fas fa-question-circle"></i> DIGITAL PORTFOLIO</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="resume">
+        <div class="section-content">
+            <center>
+                <h2>Resume</h2>
+                <a href="PRAVEENA A BSc Computer science batch 2026 (1).pdf (1).pdf" target="_blank" class="download-button">Download CV</a>
+            </center>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p>&copy; 2025 Praveena A</p>
+    </footer>
+
+    <script>
+        // Step-by-Step Navigation
+        const sections = document.querySelectorAll('.section-content');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        // Hide all sections initially
+        sections.forEach(section => {
+            section.style.display = 'none';
+        });
+
+        // Show the first section by default
+        sections[0].style.display = 'block';
+        sections[0].classList.add('active');
+
+        // Add click event listeners to navigation links
+        navLinks.forEach((link, index) => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                // Hide all sections
+                sections.forEach(section => {
+                    section.style.display = 'none';
+                    section.classList.remove('active');
+                });
+
+                // Show the clicked section
+                sections[index].style.display = 'block';
+                setTimeout(() => {
+                    sections[index].classList.add('active');
+                }, 50);
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 60,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
